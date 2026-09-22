@@ -139,7 +139,7 @@ const creatorModal = document.querySelector('#creatorModal');
 document.querySelector('#creatorButton').addEventListener('click', () => { creatorModal.hidden = false; document.querySelector('#workflowTitle').focus(); });
 document.querySelector('#creatorClose').addEventListener('click', () => { creatorModal.hidden = true; });
 creatorModal.addEventListener('click', (event) => { if (event.target === creatorModal) creatorModal.hidden = true; });
-document.querySelector('#creatorForm').addEventListener('submit', (event) => { event.preventDefault(); creatorModal.hidden = true; event.target.reset(); showToast('Workflow draft saved for review'); });
+document.querySelector('#creatorForm').addEventListener('submit', (event) => { event.preventDefault(); creatorModal.hidden = true; event.target.reset(); showToast('Story draft saved for review'); });
 document.querySelector('.avatar').addEventListener('click', () => document.querySelector('#owner').scrollIntoView({ behavior: 'smooth' }));
 document.querySelector('#modalClose').addEventListener('click', closeModal);
 modal.addEventListener('click', (event) => { if (event.target === modal) closeModal(); });
