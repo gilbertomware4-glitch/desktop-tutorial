@@ -1,5 +1,7 @@
 const storageKey = 'incheck-talk-demo-v1';
 const paymentLinks = { membership: '', tip: '' };
+const networkStatus = document.querySelector('#networkStatus');
+const networkDot = document.querySelector('#networkDot');
 const savedState = JSON.parse(localStorage.getItem(storageKey) || '{"saved":[],"liked":[]}');
 const discussions = JSON.parse(localStorage.getItem(`${storageKey}-discussions`) || '{}');
 const toast = document.querySelector('#toast');
@@ -14,6 +16,15 @@ function showToast(message) {
 
 function persist() { localStorage.setItem(storageKey, JSON.stringify(savedState)); }
 function persistDiscussions() { localStorage.setItem(`${storageKey}-discussions`, JSON.stringify(discussions)); }
+
+function updateNetworkStatus() {
+  const online = navigator.onLine;
+  networkStatus.textContent = online ? 'BROWSER ONLINE · LOCAL DEMO DATA' : 'OFFLINE · CHANGES STAY ON THIS DEVICE';
+  networkDot.classList.toggle('offline', !online);
+}
+window.addEventListener('online', updateNetworkStatus);
+window.addEventListener('offline', updateNetworkStatus);
+updateNetworkStatus();
 
 const discussionModal = document.querySelector('#discussionModal');
 const discussionTitle = document.querySelector('#discussionTitle');
