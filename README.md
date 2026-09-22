@@ -8,6 +8,8 @@ Open `index.html` directly, or run `start.bat` on Windows. The launcher uses a l
 
 ## Publish
 
-The repository is configured for GitHub Pages through the workflow in `.github/workflows/deploy-pages.yml`. Enable Pages in the repository settings and select **GitHub Actions** as the source.
+The repository is configured for GitHub Pages through the workflow in `.github/workflows/deploy-pages.yml`. In GitHub, open **Settings > Pages**, choose **GitHub Actions** as the source, and wait for the workflow to finish.
+
+The expected online address is `https://gilbertomware4-glitch.github.io/desktop-tutorial/`.
 
 Project owner: Gilbert Omware.
