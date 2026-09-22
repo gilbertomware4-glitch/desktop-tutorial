@@ -15,3 +15,7 @@ The expected online address is `https://gilbertomware4-glitch.github.io/desktop-
 This repository is public so GitHub Pages can host the site on the free plan.
 
 Project owner: Gilbert Omware.
+
+## Start earning
+
+The support modal is ready for Stripe Payment Links or PayPal links. Add the public checkout URLs to `paymentLinks.membership` and `paymentLinks.tip` near the top of `script.js`, then commit and push. Never place private API keys in this static site; use hosted payment links or a secure serverless backend.

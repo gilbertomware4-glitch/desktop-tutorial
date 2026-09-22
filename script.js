@@ -1,4 +1,5 @@
 const storageKey = 'incheck-talk-demo-v1';
+const paymentLinks = { membership: '', tip: '' };
 const savedState = JSON.parse(localStorage.getItem(storageKey) || '{"saved":[],"liked":[]}');
 const discussions = JSON.parse(localStorage.getItem(`${storageKey}-discussions`) || '{}');
 const toast = document.querySelector('#toast');
@@ -143,5 +144,11 @@ document.querySelector('#creatorForm').addEventListener('submit', (event) => { e
 document.querySelector('.avatar').addEventListener('click', () => document.querySelector('#owner').scrollIntoView({ behavior: 'smooth' }));
 document.querySelector('#modalClose').addEventListener('click', closeModal);
 modal.addEventListener('click', (event) => { if (event.target === modal) closeModal(); });
-document.querySelector('#confirmJoin').addEventListener('click', () => { closeModal(); showToast('Checkout is ready for your payment integration'); });
+document.querySelectorAll('.support-option').forEach((button) => {
+  button.addEventListener('click', () => {
+    const paymentLink = paymentLinks[button.dataset.support];
+    if (!paymentLink) return showToast('Add your Stripe or PayPal payment link to start earning');
+    window.location.href = paymentLink;
+  });
+});
 document.querySelector('#loadMore').addEventListener('click', (event) => { event.target.innerHTML = 'You are all caught up <span>✓</span>'; showToast('More stories are being curated'); });
