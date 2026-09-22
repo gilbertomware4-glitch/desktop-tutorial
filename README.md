@@ -12,4 +12,6 @@ The repository is configured for GitHub Pages through the workflow in `.github/w
 
 The expected online address is `https://gilbertomware4-glitch.github.io/desktop-tutorial/`.
 
+This repository is public so GitHub Pages can host the site on the free plan.
+
 Project owner: Gilbert Omware.
