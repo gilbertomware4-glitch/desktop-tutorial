@@ -8,7 +8,7 @@ The public GitHub Pages site currently stores demo likes, saves, and discussions
 2. Create a new project named `incheck-talk`.
 3. Open **SQL Editor**, paste `supabase-schema.sql`, and run it.
 4. Open **Project Settings > API** and copy the project URL and public anon key.
-5. Add those public values to the frontend integration when the Supabase client is connected.
+5. Put those public values in `supabase-config.js` as `url` and `anonKey`. The app will then test the `stories` table and show shared online data when the connection works.
 
 Only the project URL and public anon key belong in the browser. Never publish a service-role key. M-Pesa Daraja credentials and payment verification must run in a secure serverless function, not in GitHub Pages.
 

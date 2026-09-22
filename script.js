@@ -1,5 +1,9 @@
 const storageKey = 'incheck-talk-demo-v1';
 const paymentLinks = { membership: '', tip: '' };
+const supabaseConfig = window.INCHECK_SUPABASE_CONFIG || {};
+const supabaseClient = window.supabase && supabaseConfig.url && supabaseConfig.anonKey
+  ? window.supabase.createClient(supabaseConfig.url, supabaseConfig.anonKey)
+  : null;
 const networkStatus = document.querySelector('#networkStatus');
 const networkDot = document.querySelector('#networkDot');
 const savedState = JSON.parse(localStorage.getItem(storageKey) || '{"saved":[],"liked":[]}');
@@ -17,14 +21,27 @@ function showToast(message) {
 function persist() { localStorage.setItem(storageKey, JSON.stringify(savedState)); }
 function persistDiscussions() { localStorage.setItem(`${storageKey}-discussions`, JSON.stringify(discussions)); }
 
-function updateNetworkStatus() {
+async function checkBackendConnection() {
+  if (!supabaseClient) return false;
+  const { error } = await supabaseClient.from('stories').select('id', { head: true, count: 'exact' });
+  return !error;
+}
+
+async function updateNetworkStatus() {
   const online = navigator.onLine;
-  networkStatus.textContent = online ? 'BROWSER ONLINE · LOCAL DEMO DATA' : 'OFFLINE · CHANGES STAY ON THIS DEVICE';
+  const backendReady = online && await checkBackendConnection();
+  networkStatus.textContent = !online
+    ? 'OFFLINE · CHANGES STAY ON THIS DEVICE'
+    : backendReady
+      ? 'BROWSER ONLINE · SHARED COMMUNITY DATA'
+      : 'BROWSER ONLINE · LOCAL DEMO DATA';
   networkDot.classList.toggle('offline', !online);
 }
 window.addEventListener('online', updateNetworkStatus);
 window.addEventListener('offline', updateNetworkStatus);
-updateNetworkStatus();
+updateNetworkStatus().catch(() => {
+  networkStatus.textContent = 'BROWSER ONLINE · LOCAL DEMO DATA';
+});
 
 const discussionModal = document.querySelector('#discussionModal');
 const discussionTitle = document.querySelector('#discussionTitle');
